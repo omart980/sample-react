@@ -1,25 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react'; // use state hook renders components
-import TodoList from './TodoList'; // useRef allows us to ref elements inside our html
-import uuid from 'react-uuid' //function that generates random id
+import React, { useState, useRef, useEffect } from 'react'; 
+import TodoList from './TodoList'; 
+import uuid from 'react-uuid' // generates random id
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
-
 function App() {
-  // calling all todos inside our todo state
-  // second variable is the function to call to update todos
-  const [todos, setTodos] = useState([]) //object destructioring?
-  // {id: 1, name: 'Todo 1', complete: false} cuz we do not want to start  with TODOs
+  // 1st var calls todos, 2nd var updates todos
+  const [todos, setTodos] = useState([]) 
   const todoNameRef = useRef()
 
 useEffect(() => { 
   const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-  if (storedTodos) 
-    return setTodos(storedTodos)
+  if (storedTodos) setTodos(storedTodos)
 }, [])
 
 useEffect(() => { //whenever something changes, we call this function
-  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos))
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todos)) //localStorage saves key/ value data
 }, [todos])
 
 function toggleTodo(id){
@@ -32,10 +28,11 @@ function toggleTodo(id){
 function handleAddTodo(e){ //event property
   const name = todoNameRef.current.value
   if(name === '') return
-    setTodos(prevTodos => {
-    return [...prevTodos, {id: uuid(), name: name, defaultChecked: false}]/// ...spread this over our array
-  })
-  todoNameRef.current.value = null
+  setTodos(prevTodos => {
+    return [...prevTodos, {id: uuid(), name: name, complete: false}]
+    // (spread syntax)...spread this over our array, deconstruct into sepreate values 
+  }) 
+  todoNameRef.current.value = null // null clears previous value
 
 }
 
@@ -45,9 +42,9 @@ function clearTodos(){
 }
 
 
-return ( //returns only return one thing, so use <> fragments to return one thing in multiple 
+return ( //use <> fragments to return one thing in multiple returns
   <> 
-    <TodoList todos ={todos} toggleTodo={toggleTodo}/>
+    <TodoList todos ={todos} toggleTodo={toggleTodo}/> {/* Props (todos) */}
     <input ref={todoNameRef} type="text" />
     <button onClick={handleAddTodo}>Add Todo</button>
     <button onClick={clearTodos}>Completed Todo</button>
@@ -60,4 +57,3 @@ export default App;
 
 
 //https://www.youtube.com/watch?v=XMgNgEc94d8
-// Line 11: props?? 
