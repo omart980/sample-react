@@ -9,3 +9,4 @@ root.render(
   </React.StrictMode>
 );
 
+// rendering from our APP component in our root element ( which is the APP component)

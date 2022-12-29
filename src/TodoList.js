@@ -1,11 +1,12 @@
 import React from 'react'
 import Todo from './Todo'
 
+// for returning our TODO list
 export default function TodoList( {todos, toggleTodo} ) {
   return (
     todos.map(todo => { //map all our todo
-      return <Todo key={todo.id} toggleTodo={toggleTodo} todo={todo}/> // return a todo component
-      // key are like ids that make this unique for rendering specific ones changed
+      // return compo., with key prop for unique rendering
+      return <Todo key={todo.id} toggleTodo={toggleTodo} todo={todo}/>
     })
   )
 }

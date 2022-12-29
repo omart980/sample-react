@@ -10,7 +10,7 @@ function handleTodoClick(){
     <div>
         <label>
             <input type='checkbox' checked={todo.complete} onChange={handleTodoClick} />
-            {todo.name}
+            {todo.name} {/**onChange similar to onClick */}
         </label>
     </div>// we print out the todoo from toodolist
   )
